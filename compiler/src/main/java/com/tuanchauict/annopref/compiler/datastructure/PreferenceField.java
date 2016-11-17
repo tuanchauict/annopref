@@ -1,6 +1,6 @@
-package com.tuanchauict.annopref.datastructure;
+package com.tuanchauict.annopref.compiler.datastructure;
 
-import com.tuanchauict.annopref.Utils;
+import com.tuanchauict.annopref.compiler.Utils;
 
 import javax.lang.model.element.VariableElement;
 
@@ -30,8 +30,6 @@ public class PreferenceField {
     }
 
     public String getMethodName(){
-        String fieldName = getFieldName();
-        String first = fieldName.substring(0, 1);
-        return first.toUpperCase() + fieldName.substring(1);
+        return Utils.firstUpperCase(getFieldName());
     }
 }

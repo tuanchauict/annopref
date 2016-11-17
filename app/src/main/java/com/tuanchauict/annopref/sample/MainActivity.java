@@ -1,4 +1,4 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

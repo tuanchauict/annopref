@@ -1,1 +1,1 @@
-include ':app', ':pref', ':compiler'
+include ':app', ':pref', ':compiler', ':annopref'

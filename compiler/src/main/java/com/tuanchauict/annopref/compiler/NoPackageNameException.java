@@ -1,4 +1,4 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.compiler;
 
 import javax.lang.model.element.TypeElement;
 

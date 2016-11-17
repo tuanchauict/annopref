@@ -1,7 +1,6 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.compiler;
 
 import java.math.BigInteger;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,7 +21,7 @@ public class Utils {
         return pkg.getQualifiedName().toString();
     }
 
-    static MessageDigest md;
+    private static MessageDigest md;
 
     static {
         try {
@@ -39,6 +38,11 @@ public class Utils {
 
 
     public static boolean isEmpty(String text) {
-        return text == null || text.isEmpty();
+        return text == null || text.length() == 0;
+    }
+
+    public static String firstUpperCase(String text) {
+        String first = text.substring(0, 1);
+        return first.toUpperCase() + text.substring(1);
     }
 }

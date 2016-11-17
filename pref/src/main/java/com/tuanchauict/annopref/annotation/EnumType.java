@@ -1,4 +1,4 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.annotation;
 
 /**
  * Created by tuanchauict on 11/16/16.

@@ -17,7 +17,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
     defaultConfig {
-        applicationId "com.tuanchauict.annopref"
+        applicationId "com.tuanchauict.annopref.sample"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
@@ -42,5 +42,6 @@ dependencies {
 
     compile project(':pref')
     apt project(':compiler')
+    compile project(':annopref')
 
 }

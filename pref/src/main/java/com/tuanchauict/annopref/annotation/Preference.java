@@ -1,4 +1,4 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.annotation;
 
 import java.lang.annotation.Target;
 

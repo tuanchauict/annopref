@@ -1,9 +1,9 @@
-package com.tuanchauict.annopref.datastructure;
+package com.tuanchauict.annopref.compiler.datastructure;
 
-import com.tuanchauict.annopref.EnumType;
-import com.tuanchauict.annopref.NoPackageNameException;
-import com.tuanchauict.annopref.Preference;
-import com.tuanchauict.annopref.Utils;
+import com.tuanchauict.annopref.annotation.EnumType;
+import com.tuanchauict.annopref.compiler.NoPackageNameException;
+import com.tuanchauict.annopref.annotation.Preference;
+import com.tuanchauict.annopref.compiler.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,13 @@
-package com.tuanchauict.annopref;
+package com.tuanchauict.annopref.compiler;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
-import com.tuanchauict.annopref.datastructure.PreferenceClass;
-import com.tuanchauict.annopref.datastructure.PreferenceField;
+import com.tuanchauict.annopref.annotation.Field;
+import com.tuanchauict.annopref.annotation.Ignore;
+import com.tuanchauict.annopref.annotation.Preference;
+import com.tuanchauict.annopref.compiler.datastructure.PreferenceClass;
+import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 
 import java.io.IOException;
 import java.util.ArrayList;
