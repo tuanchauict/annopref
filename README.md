@@ -64,4 +64,4 @@ FooPref.hasBaz();
 
 * More supported type (array, list, set, map)
 * Customizable get set function for each field group.
-
+* Default value
