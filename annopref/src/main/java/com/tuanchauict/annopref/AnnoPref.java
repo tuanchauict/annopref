@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -83,36 +84,108 @@ public class AnnoPref {
 
     //region Set
     public static void putIntegerSet(String property, Set<Integer> value){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Integer i : value) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static Set<Integer> getIntegerSet(String property, Set<Integer> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            HashSet<Integer> result = new HashSet<>(arr.length);
+            for (String s : arr) {
+                result.add(Integer.parseInt(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
     public static void putLongSet(String property, Set<Long> value){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Long i : value) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static Set<Long> getLongSet(String property, Set<Long> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            HashSet<Long> result = new HashSet<>(arr.length);
+            for (String s : arr) {
+                result.add(Long.parseLong(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
     public static void putFloatSet(String property, Set<Float> value){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Float i : value) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static Set<Float> getFloatSet(String property, Set<Float> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            HashSet<Float> result = new HashSet<>(arr.length);
+            for (String s : arr) {
+                result.add(Float.parseFloat(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
     public static void putDoubleSet(String property, Set<Double> value){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Double i : value) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static Set<Double> getDoubleSet(String property, Set<Double> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            HashSet<Double> result = new HashSet<>(arr.length);
+            for (String s : arr) {
+                result.add(Double.parseDouble(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     public static void putStringSet(String property, Set<String> value) {
@@ -125,8 +198,6 @@ public class AnnoPref {
         return sSharedPreferences.getStringSet(property, defaultValue);
     }
     //endregion
-
-
 
     //region List
     public static void putIntegerList(String property, List<Integer> arr) {
@@ -157,30 +228,84 @@ public class AnnoPref {
     }
 
     public static void putLongList(String property, List<Long> arr){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Long i : arr) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static List<Long> getLongList(String property, List<Long> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            ArrayList<Long> result = new ArrayList<>(arr.length);
+            for (String s : arr) {
+                result.add(Long.parseLong(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     public static void putFloatList(String property, List<Float> arr){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Float i : arr) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static List<Float> getFloatList(String property, List<Float> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            ArrayList<Float> result = new ArrayList<>(arr.length);
+            for (String s : arr) {
+                result.add(Float.parseFloat(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     public static void putDoubleList(String property, List<Double> arr){
-        //TODO
+        StringBuilder sb = new StringBuilder();
+        for (Double i : arr) {
+            sb.append(i).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        putString(property, sb.toString());
     }
 
     public static List<Double> getDoubleList(String property, List<Double> defaultValue){
-        //TODO
-        return defaultValue;
+        if (!containsKey(property)) {
+            return defaultValue;
+        }
+        try {
+            String str = getString(property, null);
+            if (str == null) return null;
+            String[] arr = str.split(",");
+            ArrayList<Double> result = new ArrayList<>(arr.length);
+            for (String s : arr) {
+                result.add(Double.parseDouble(s));
+            }
+            return result;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     public static void putStringList(String property, List<String> value) {
