@@ -54,7 +54,7 @@ In Java code, for reading field Foo.baz in SharePreferences, just call:
 
 ```java
 FooPref.getBaz(); //or
-FooPref.getBaz(default value);
+FooPref.getBaz(defaultValue);
 //and
 FooPref.setBaz();
 FooPref.hasBaz();
