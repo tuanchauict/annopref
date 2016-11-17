@@ -50,4 +50,18 @@ compile 'com.tuanchauict.annopref:annopref:0.5'
 apt 'com.tuanchauict.annopref:annopref-compiler:0.5'
 ```
 
+In Java code, for reading field Foo.baz in SharePreferences, just call:
+
+```
+FooPref.getBaz(); //or
+FooPref.getBaz(default value);
+//and
+FooPref.setBaz();
+FooPref.hasBaz();
+```
+
+# Future Work
+
+* More supported type (array, list, set, map)
+* Customizable get set function for each field group.
 
