@@ -29,6 +29,7 @@ public class AnnoPref {
         return sSharedPreferences.contains(key);
     }
 
+    //region Atomic
     public static void putBoolean(String property, boolean value) {
         SharedPreferences.Editor editor = sSharedPreferences.edit();
         editor.putBoolean(property, value);
@@ -78,6 +79,41 @@ public class AnnoPref {
     public static String getString(String property, String defaultValue) {
         return sSharedPreferences.getString(property, defaultValue);
     }
+    //endregion
+
+    //region Set
+    public static void putIntegerSet(String property, Set<Integer> value){
+        //TODO
+    }
+
+    public static Set<Integer> getIntegerSet(String property, Set<Integer> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+    public static void putLongSet(String property, Set<Long> value){
+        //TODO
+    }
+
+    public static Set<Long> getLongSet(String property, Set<Long> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+    public static void putFloatSet(String property, Set<Float> value){
+        //TODO
+    }
+
+    public static Set<Float> getFloatSet(String property, Set<Float> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+    public static void putDoubleSet(String property, Set<Double> value){
+        //TODO
+    }
+
+    public static Set<Double> getDoubleSet(String property, Set<Double> defaultValue){
+        //TODO
+        return defaultValue;
+    }
 
     public static void putStringSet(String property, Set<String> value) {
         SharedPreferences.Editor editor = sSharedPreferences.edit();
@@ -88,7 +124,11 @@ public class AnnoPref {
     public static Set<String> getStringSet(String property, Set<String> defaultValue) {
         return sSharedPreferences.getStringSet(property, defaultValue);
     }
+    //endregion
 
+
+
+    //region List
     public static void putIntegerList(String property, List<Integer> arr) {
         StringBuilder sb = new StringBuilder();
         for (Integer i : arr) {
@@ -115,6 +155,67 @@ public class AnnoPref {
             return defaultValue;
         }
     }
+
+    public static void putLongList(String property, List<Long> arr){
+        //TODO
+    }
+
+    public static List<Long> getLongList(String property, List<Long> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+
+    public static void putFloatList(String property, List<Float> arr){
+        //TODO
+    }
+
+    public static List<Float> getFloatList(String property, List<Float> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+
+    public static void putDoubleList(String property, List<Double> arr){
+        //TODO
+    }
+
+    public static List<Double> getDoubleList(String property, List<Double> defaultValue){
+        //TODO
+        return defaultValue;
+    }
+
+    public static void putStringList(String property, List<String> value) {
+        SharedPreferences.Editor editor = AnnoPref.sSharedPreferences.edit();
+
+        if (value != null) {
+            JSONArray arr = new JSONArray();
+            for (String s : value) {
+                arr.put(s);
+            }
+            editor.putString(property, arr.toString());
+        } else {
+            editor.putString(property, null);
+        }
+
+        editor.apply();
+    }
+
+    public static List<String> getStringList(String property, List<String> defaultValue) {
+        String str = sSharedPreferences.getString(property, null);
+        if (TextUtils.isEmpty(str))
+            return defaultValue;
+
+        try {
+            JSONArray arr = new JSONArray(str);
+            List<String> slist = new ArrayList<>(arr.length());
+            for (int i = 0; i < arr.length(); i++) {
+                slist.add(arr.getString(i));
+            }
+            return slist;
+        } catch (JSONException e) {
+            return defaultValue;
+        }
+    }
+    //endregion
 
     public static void putStringMap(String property, Map<String, String> value) {
         SharedPreferences.Editor editor = sSharedPreferences.edit();
@@ -152,39 +253,6 @@ public class AnnoPref {
                 }
             }
             return map;
-        } catch (JSONException e) {
-            return defaultValue;
-        }
-    }
-
-    public static void putStringList(String property, List<String> value) {
-        SharedPreferences.Editor editor = AnnoPref.sSharedPreferences.edit();
-
-        if (value != null) {
-            JSONArray arr = new JSONArray();
-            for (String s : value) {
-                arr.put(s);
-            }
-            editor.putString(property, arr.toString());
-        } else {
-            editor.putString(property, null);
-        }
-
-        editor.apply();
-    }
-
-    public static List<String> getStringList(String property, List<String> defaultValue) {
-        String str = sSharedPreferences.getString(property, null);
-        if (TextUtils.isEmpty(str))
-            return defaultValue;
-
-        try {
-            JSONArray arr = new JSONArray(str);
-            List<String> slist = new ArrayList<>(arr.length());
-            for (int i = 0; i < arr.length(); i++) {
-                slist.add(arr.getString(i));
-            }
-            return slist;
         } catch (JSONException e) {
             return defaultValue;
         }
