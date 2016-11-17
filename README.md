@@ -46,8 +46,8 @@ repositories{
 }
 ```
 ```groovy
-compile 'com.tuanchauict.annopref:annopref:0.5'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.5'
+compile 'com.tuanchauict.annopref:annopref:0.6'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.6'
 ```
 
 In Application's `onCreate`:
