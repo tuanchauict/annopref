@@ -9,27 +9,31 @@ import javax.lang.model.element.VariableElement;
  */
 
 public class PreferenceField {
-    private final VariableElement mTypeElement;
+    private final VariableElement mVariableElement;
     private final String mCustomName;
 
     public PreferenceField(VariableElement typeElement, String customName) {
-        mTypeElement = typeElement;
+        mVariableElement = typeElement;
         mCustomName = customName;
     }
 
     public String getType(){
-        return mTypeElement.asType().toString();
+        return mVariableElement.asType().toString();
     }
 
     public String getFieldName(){
-        return mTypeElement.getSimpleName().toString();
+        return mVariableElement.getSimpleName().toString();
     }
 
     public String getPrefName(){
-        return Utils.isEmpty(mCustomName) ? mTypeElement.getSimpleName().toString() : mCustomName;
+        return Utils.isEmpty(mCustomName) ? mVariableElement.getSimpleName().toString() : mCustomName;
     }
 
     public String getMethodName(){
         return Utils.firstUpperCase(getFieldName());
+    }
+
+    public VariableElement getVariableElement() {
+        return mVariableElement;
     }
 }

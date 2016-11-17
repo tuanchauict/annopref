@@ -9,8 +9,8 @@ import com.tuanchauict.annopref.annotation.Preference;
  */
 @Preference(prefix = "FOO")
 public class Foo {
+    @Field(name = "foo")
     private int intPref;
-    @Field(name = "customFloatName")
     private float floatPref;
     private String stringPref;
 }

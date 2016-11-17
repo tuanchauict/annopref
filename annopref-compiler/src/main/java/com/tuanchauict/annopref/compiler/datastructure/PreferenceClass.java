@@ -17,9 +17,11 @@ import javax.lang.model.util.Elements;
 
 public class PreferenceClass {
     private String mPrefix;
+    private boolean mAutoPrefix;
     private boolean mAntiHack;
     private EnumType mType;
     private TypeElement mTypeElement;
+
 
     private final List<PreferenceField> mFields = new ArrayList<>();
 
@@ -27,6 +29,7 @@ public class PreferenceClass {
         mTypeElement = typeElement;
         Preference preference = typeElement.getAnnotation(Preference.class);
         mPrefix = preference.prefix();
+        mAutoPrefix = preference.autoPrefix();
         mAntiHack = preference.antiHack();
         mType = preference.type();
     }
@@ -36,7 +39,8 @@ public class PreferenceClass {
     }
 
     public String getPrefix(){
-        return Utils.isEmpty(mPrefix) ? mTypeElement.getQualifiedName().toString() : mPrefix;
+        return mAutoPrefix && Utils.isEmpty(mPrefix)
+                ? mTypeElement.getQualifiedName().toString() : mPrefix;
     }
 
     public List<PreferenceField> getFields(){

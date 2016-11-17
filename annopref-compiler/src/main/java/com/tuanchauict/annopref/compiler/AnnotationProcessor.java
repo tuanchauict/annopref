@@ -12,6 +12,7 @@ import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,12 +63,16 @@ public class AnnotationProcessor extends AbstractProcessor {
                 error(typeElement, "Couldn't process class %s: %s", typeElement, e.getMessage());
             }
         }
-
+        HashMap<String, PreferenceField> fieldNames = new HashMap<>();
         for (PreferenceClass preferenceClass : classes) {
             try {
-                generate(preferenceClass);
+                generate(preferenceClass, fieldNames);
             } catch (NoPackageNameException | IOException e) {
                 error(preferenceClass.getTypeElement(), "Couldn't generate class");
+            } catch (DuplicateFieldNameException e) {
+                mMessager.printMessage(Diagnostic.Kind.ERROR, "Duplicate field name error");
+                mMessager.printMessage(Diagnostic.Kind.WARNING, "", e.field1.getVariableElement());
+                mMessager.printMessage(Diagnostic.Kind.WARNING, "", e.field2.getVariableElement());
             }
         }
 
@@ -83,10 +88,8 @@ public class AnnotationProcessor extends AbstractProcessor {
             VariableElement variableElement = (VariableElement) element;
 
             if (!FieldValidator.isValid(variableElement)) {
-                error(variableElement, "No support type: %s of %s from %s",
-                        variableElement.asType().toString(),
-                        element.toString(),
-                        typeElement.getSimpleName().toString());
+                error(variableElement, "No support type: %s",
+                        variableElement.asType().toString());
                 break;
             }
 
@@ -99,14 +102,14 @@ public class AnnotationProcessor extends AbstractProcessor {
         return preferenceClass;
     }
 
-    private void generate(PreferenceClass cls) throws NoPackageNameException, IOException {
+    private void generate(PreferenceClass cls, HashMap<String, PreferenceField> fieldNames) throws NoPackageNameException, IOException, DuplicateFieldNameException {
         String packageName = cls.getPackage(processingEnv.getElementUtils());
-        TypeSpec generatedClass = CodeGenerator.generateClass(cls);
+        TypeSpec generatedClass = CodeGenerator.generateClass(cls, fieldNames);
         JavaFile javaFile = JavaFile.builder(packageName, generatedClass).build();
         javaFile.writeTo(processingEnv.getFiler());
     }
 
     private void error(Element element, String mess, Object... args) {
-        mMessager.printMessage(Diagnostic.Kind.ERROR, String.format(mess, args, element));
+        mMessager.printMessage(Diagnostic.Kind.ERROR, String.format(mess, args), element);
     }
 }

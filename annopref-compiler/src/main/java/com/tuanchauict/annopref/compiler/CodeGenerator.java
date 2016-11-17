@@ -10,7 +10,9 @@ import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.activation.UnsupportedDataTypeException;
 import javax.lang.model.element.Modifier;
@@ -24,7 +26,7 @@ public class CodeGenerator {
     private static final String SUFFIX = "Pref";
     private static final ClassName ANNOPREF = ClassName.get("com.tuanchauict.annopref", "AnnoPref");
 
-    public static TypeSpec generateClass(PreferenceClass cls) throws UnsupportedDataTypeException {
+    public static TypeSpec generateClass(PreferenceClass cls, HashMap<String, PreferenceField> currentFieldNames) throws UnsupportedDataTypeException, DuplicateFieldNameException {
 
         String clsName = cls.getClassName() + SUFFIX;
 
@@ -35,7 +37,7 @@ public class CodeGenerator {
         boolean antiHack = cls.isAntiHack();
         String prefix = cls.getPrefix();
 
-        if(singleton){
+        if (singleton) {
             ClassName singletonType = ClassName.get("", clsName);
             FieldSpec.Builder field = FieldSpec.builder(singletonType, "sInstance", Modifier.STATIC, Modifier.PRIVATE);
             builder.addField(field.build());
@@ -50,69 +52,48 @@ public class CodeGenerator {
 
         List<PreferenceField> fields = cls.getFields();
         for (PreferenceField field : fields) {
-            System.out.println(field.getFieldName() + " : " + field.getType());
-            builder.addMethod(makeGetMethod(singleton, antiHack, prefix, field));
-            builder.addMethod(makeGetWithDefaultMethod(singleton, antiHack, prefix, field));
-            builder.addMethod(makeSetMethod(singleton, antiHack, prefix, field));
-            builder.addMethod(makeHasMethod(singleton, antiHack, prefix, field));
+            String fieldName = getPrefKey(antiHack, prefix, field.getPrefName());
+            if (currentFieldNames.keySet().contains(fieldName)) {
+                throw new DuplicateFieldNameException(currentFieldNames.get(fieldName), field);
+            }
+            currentFieldNames.put(fieldName, field);
+            builder.addMethod(makeGetMethod(singleton, fieldName, field));
+            builder.addMethod(makeGetWithDefaultMethod(singleton, fieldName, field));
+            builder.addMethod(makeSetMethod(singleton, fieldName, field));
+            builder.addMethod(makeHasMethod(singleton, fieldName, field));
         }
 
         return builder.build();
     }
 
 
-    private static MethodSpec makeGetMethod(boolean singleton, boolean antiHack, String prefix,
+    private static MethodSpec makeGetMethod(boolean singleton, String fieldName,
                                             PreferenceField field) throws UnsupportedDataTypeException {
         MethodSpec.Builder builder = makeGenericMethod(singleton, "get" + field.getMethodName());
-        String key = getPrefKey(antiHack, prefix, field.getPrefName());
         String type = field.getType();
         TypeName typeName = typeNameOf(type);
-        System.out.println(typeName);
-        if (typeName != null) {
-            builder.returns(typeName);
-            builder.addStatement("return $T.get$L($S, $L)",
-                    ANNOPREF,
-                    methodNameOfType(type),
-                    key,
-                    defaultOf(type)
-            );
-        } else {
-            builder.returns(typeOf(type));
-            builder.addStatement("return $T.get$L($S, $L)",
-                    ANNOPREF,
-                    methodNameOfType(type),
-                    key,
-                    "null"
-            );
-        }
+        builder.returns(typeName);
+        builder.addStatement("return $T.get$L($S, $L)",
+                ANNOPREF,
+                methodNameOfType(type),
+                fieldName,
+                defaultOf(type)
+        );
 
         return builder.build();
     }
 
-    private static MethodSpec makeGetWithDefaultMethod(boolean singleton, boolean antiHack,
-                                                       String prefix, PreferenceField field) throws UnsupportedDataTypeException {
+    private static MethodSpec makeGetWithDefaultMethod(boolean singleton, String fieldName, PreferenceField field) throws UnsupportedDataTypeException {
         MethodSpec.Builder builder = makeGenericMethod(singleton, "get" + field.getMethodName());
-        String key = getPrefKey(antiHack, prefix, field.getPrefName());
         String type = field.getType();
         TypeName typeName = typeNameOf(type);
-        System.out.println(typeName);
         if (typeName != null) {
             builder.addParameter(typeName, "defaultValue");
             builder.returns(typeName);
             builder.addStatement("return $T.get$L($S, $L)",
                     ANNOPREF,
                     methodNameOfType(type),
-                    key,
-                    "defaultValue"
-            );
-        } else {
-            Type t = typeOf(type);
-            builder.returns(t);
-            builder.addParameter(t, "defaultValue");
-            builder.addStatement("return $T.get$L($S, $L)",
-                    ANNOPREF,
-                    methodNameOfType(type),
-                    key,
+                    fieldName,
                     "defaultValue"
             );
         }
@@ -120,33 +101,28 @@ public class CodeGenerator {
         return builder.build();
     }
 
-    private static MethodSpec makeSetMethod(boolean singleton, boolean antiHack, String prefix,
+    private static MethodSpec makeSetMethod(boolean singleton, String fieldName,
                                             PreferenceField field) throws UnsupportedDataTypeException {
 
         MethodSpec.Builder builder = makeGenericMethod(singleton, "set" + field.getMethodName());
         String type = field.getType();
-        String key = getPrefKey(antiHack, prefix, field.getPrefName());
         TypeName typeName = typeNameOf(field.getType());
-        if (typeName != null) {
-            builder.addParameter(typeName, field.getFieldName());
-            builder.addStatement("$T.put$L($S, $L)",
-                    ANNOPREF,
-                    methodNameOfType(type),
-                    key,
-                    field.getFieldName()
-            );
-        } else {
-            builder.addParameter(typeOf(field.getType()), field.getFieldName());
-        }
+        builder.addParameter(typeName, field.getFieldName());
+        builder.addStatement("$T.put$L($S, $L)",
+                ANNOPREF,
+                methodNameOfType(type),
+                fieldName,
+                field.getFieldName()
+        );
 
         return builder.build();
     }
 
-    private static MethodSpec makeHasMethod(boolean singleton, boolean antiHack, String prefix,
+    private static MethodSpec makeHasMethod(boolean singleton, String fieldName,
                                             PreferenceField field) {
 
         MethodSpec.Builder builder = makeGenericMethod(singleton, "has" + field.getMethodName())
-                .addStatement("return $T.containsKey($S)", ANNOPREF, getPrefKey(antiHack, prefix, field.getPrefName()))
+                .addStatement("return $T.containsKey($S)", ANNOPREF, fieldName)
                 .returns(TypeName.BOOLEAN);
 
         return builder.build();
@@ -155,73 +131,31 @@ public class CodeGenerator {
     private static MethodSpec.Builder makeGenericMethod(boolean singleton, String methodName) {
         MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC);
-        if(!singleton)
+        if (!singleton)
             builder.addModifiers(Modifier.STATIC);
 
         return builder;
     }
 
-
-    private static Type typeOf(String type) throws UnsupportedDataTypeException {
-        switch (type) {
-//            case "java.util.List<java.lang.Integer>":
-//                return List.class;
-        }
-
-
-        throw new UnsupportedDataTypeException();
+    private static TypeName typeNameOf(String type) throws UnsupportedDataTypeException {
+        TypeName result = Constants.TYPENAME_OF_TYPE.get(type);
+        if (result == null)
+            throw new UnsupportedDataTypeException();
+        return result;
     }
 
-    private static TypeName typeNameOf(String type) {
-        System.out.println("typeNameOf: " + type);
-        switch (type) {
-            case "int":
-                return TypeName.INT;
-            case "long":
-                return TypeName.LONG;
-            case "float":
-                return TypeName.FLOAT;
-            case "double":
-                return TypeName.DOUBLE;
-            case "java.lang.String":
-                return ClassName.get(String.class);
-
-        }
-        return null;
+    private static String methodNameOfType(String type) throws UnsupportedDataTypeException {
+        String result = Constants.METHOD_OF_TYPE.get(type);
+        if (result == null)
+            throw new UnsupportedDataTypeException();
+        return result;
     }
 
-    private static String methodNameOfType(String type){
-        switch (type){
-            case "int":
-                return "Int";
-            case "long":
-                return "Long";
-            case "float":
-                return "Float";
-            case "double":
-                return "Double";
-            case "java.lang.String":
-                return "String";
-            case "java.util.List<java.lang.Integer>":
-                return "IntegerList";
-        }
-        return null;
-    }
-
-    private static String defaultOf(String type) {
-        switch (type) {
-            case "int":
-                return "0";
-            case "long":
-                return "0";
-            case "float":
-                return "0";
-            case "double":
-                return "0";
-            case "java.lang.String":
-                return "null";
-        }
-        return "null";
+    private static String defaultOf(String type) throws UnsupportedDataTypeException {
+        String result = Constants.DEFAULT_VALUES.get(type);
+        if (result == null)
+            throw new UnsupportedDataTypeException();
+        return result;
     }
 
     private static String getPrefKey(boolean antiHack, String prefix, String name) {
