@@ -40,8 +40,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile project(':pref')
-    apt project(':compiler')
+    compile project(':annopref-annotation')
+    apt project(':annopref-compiler')
     compile project(':annopref')
 
 }

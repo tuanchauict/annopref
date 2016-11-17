@@ -1,1 +1,1 @@
-include ':app', ':pref', ':compiler', ':annopref'
+include ':app', ':annopref-annotation', ':annopref-compiler', ':annopref'
