@@ -50,7 +50,7 @@ compile 'com.tuanchauict.annopref:annopref:0.5'
 apt 'com.tuanchauict.annopref:annopref-compiler:0.5'
 ```
 
-In Java code, for reading field Foo.baz in SharePreferences, just call:
+In Java code, for get/set field Foo.baz in SharePreferences, just call:
 
 ```java
 FooPref.getBaz(); //or
