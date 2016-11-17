@@ -1,4 +1,6 @@
 apply plugin: 'java'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 dependencies {
     compile project(':annopref-annotation')
@@ -6,5 +8,73 @@ dependencies {
     compile 'com.squareup:javapoet:1.0.0'
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion
+
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'jar'
+
+                name POM_DESCRIPTION
+                url POM_URL
+
+                licenses {
+                    license{
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+
+                }
+
+                developers {
+                    developer {
+                        id 'tuanchauict'
+                        name 'Tuan Chau'
+                        email 'tuanchauict@gmail.com'
+                    }
+                }
+                scm {
+                    connection POM_SCM_CONNECTION
+                    developerConnection POM_SCM_DEV_CONNECTION
+                    url POM_URL
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar, dependsOn:classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn:javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+
+    pkg {
+        repo = "maven"
+        name = "annopref"
+        websiteUrl = POM_URL
+        vcsUrl = POM_SCM_DEV_CONNECTION
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
