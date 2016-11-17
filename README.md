@@ -50,6 +50,12 @@ compile 'com.tuanchauict.annopref:annopref:0.5'
 apt 'com.tuanchauict.annopref:annopref-compiler:0.5'
 ```
 
+In Application's `onCreate`:
+
+```java
+AnnoPref.init(getSharedPreferences("name", MODE_PRIVATE));
+```
+
 In Java code, for get/set field Foo.baz in SharePreferences, just call:
 
 ```java
