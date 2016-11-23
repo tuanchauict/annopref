@@ -7,7 +7,7 @@ AnnoPref provides:
 
 * Automatically generate `get/set/has` function for each preference field
 * "AntiHack" by encoding the key of each preference field name
-* Customizable the name of each field (no effect if AntiHack is on)
+* Customizable the name of each field (the custom name will be used for the hash function if AntiHack is applied)
 * Simple create `static` get/set functions or inside a `singleton` for Dependencies Injection
 
 # Example
@@ -40,21 +40,61 @@ public class FooPref {
  ```
 
 # Usage
-```groovy
-repositories{
-    maven {url 'https://dl.bintray.com/tuanchauict/maven/'}
-}
-```
+### gradle dependencies
+
 ```groovy
 compile 'com.tuanchauict.annopref:annopref:0.6'
 apt 'com.tuanchauict.annopref:annopref-compiler:0.6'
 ```
+
+### Init
 
 In Application's `onCreate`:
 
 ```java
 AnnoPref.init(getSharedPreferences("name", MODE_PRIVATE));
 ```
+
+### Define Fields
+
+#### Basic:
+
+```java
+@Preference
+class Foo{
+    int foo;
+    String baz;
+}
+```
+
+We will have these fields in the preference file:
+
+```
+foo
+baz
+```
+
+#### Customize
+
+`@Preference` attributes
+
+* `prefix` : the prefix for each field in the class
+* `autoPrefix=true`: will use class name (include package name) be the prefix of the field names
+* `antiHack=true`: will hash the field's name by using MD5 and Base64
+* `type`:
+    * `STATIC` : create static methods
+    * `SINGLETON` : create concrete methods of object and a `getInstance()` static function
+
+`@Field`
+
+* `name` : custom the name of field
+
+`@Ignore`
+
+Add this annotation on a field if we don't want this be generated to preference.
+
+
+### Get/Set
 
 In Java code, for get/set field Foo.baz in SharePreferences, just call:
 
@@ -66,8 +106,14 @@ FooPref.setBaz();
 FooPref.hasBaz();
 ```
 
+
+
 # Future Work
 
-* More supported type (array, list, set, map)
-* Customizable get set function for each field group.
+* More types:
+    * Array
+    * ~~List~~
+    * ~~Set~~
+    * Map
+* Customizable get/set function for each field group.
 * Default value
