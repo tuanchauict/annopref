@@ -7,7 +7,7 @@ AnnoPref provides:
 
 * Automatically generate `get/set/has` function for each preference field
 * "AntiHack" by encoding the key of each preference field name
-* Customizable the name of each field (the custom name will be used for the hash function if AntiHack is applied)
+* Customizable the name of each field (no effect if AntiHack is on)
 * Simple create `static` get/set functions or inside a `singleton` for Dependencies Injection
 
 # Example
@@ -40,6 +40,7 @@ public class FooPref {
  ```
 
 # Usage
+
 ### gradle dependencies
 
 ```groovy
