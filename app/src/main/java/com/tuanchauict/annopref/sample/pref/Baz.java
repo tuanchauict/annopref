@@ -7,5 +7,5 @@ import com.tuanchauict.annopref.annotation.Preference;
  */
 @Preference(antiHack = true)
 public class Baz {
-    private String baz;
+    private boolean baz;
 }

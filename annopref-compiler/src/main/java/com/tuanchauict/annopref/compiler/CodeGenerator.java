@@ -8,11 +8,8 @@ import com.squareup.javapoet.TypeSpec;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceClass;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import javax.activation.UnsupportedDataTypeException;
 import javax.lang.model.element.Modifier;
@@ -69,7 +66,12 @@ public class CodeGenerator {
 
     private static MethodSpec makeGetMethod(boolean singleton, String fieldName,
                                             PreferenceField field) throws UnsupportedDataTypeException {
-        MethodSpec.Builder builder = makeGenericMethod(singleton, "get" + field.getMethodName());
+        MethodSpec.Builder builder ;
+        if(Constants.BOOLEAN_TYPE.equals(field.getType())){
+            builder = makeGenericMethod(singleton, "is" + field.getMethodName());
+        } else {
+            builder = makeGenericMethod(singleton, "get" + field.getMethodName());
+        }
         String type = field.getType();
         TypeName typeName = typeNameOf(type);
         builder.returns(typeName);
@@ -84,7 +86,12 @@ public class CodeGenerator {
     }
 
     private static MethodSpec makeGetWithDefaultMethod(boolean singleton, String fieldName, PreferenceField field) throws UnsupportedDataTypeException {
-        MethodSpec.Builder builder = makeGenericMethod(singleton, "get" + field.getMethodName());
+        MethodSpec.Builder builder ;
+        if(Constants.BOOLEAN_TYPE.equals(field.getType())){
+            builder = makeGenericMethod(singleton, "is" + field.getMethodName());
+        } else {
+            builder = makeGenericMethod(singleton, "get" + field.getMethodName());
+        }
         String type = field.getType();
         TypeName typeName = typeNameOf(type);
         if (typeName != null) {
