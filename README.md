@@ -44,8 +44,8 @@ public class FooPref {
 ### gradle dependencies
 
 ```groovy
-compile 'com.tuanchauict.annopref:annopref:0.7.1'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.7.1'
+compile 'com.tuanchauict.annopref:annopref:0.8.0'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.8.0'
 ```
 
 ### Init
@@ -88,12 +88,13 @@ baz
 
 `@Field`
 
-* `name` : custom the name of field
+* `value` : custom the name of field (can be shortened by `@Field("a-key-name")`
 
 `@Ignore`
 
 Add this annotation on a field if we don't want this be generated to preference.
 
+//TODO default value
 
 ### Get/Set
 
@@ -117,4 +118,4 @@ FooPref.hasBaz();
     * ~~Set~~
     * Map
 * Customizable get/set function for each field group.
-* Default value
+* ~~Default value~~

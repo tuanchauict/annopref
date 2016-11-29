@@ -3,9 +3,15 @@ package com.tuanchauict.annopref.compiler;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
+import com.tuanchauict.annopref.annotation.BooleanValue;
+import com.tuanchauict.annopref.annotation.DoubleValue;
 import com.tuanchauict.annopref.annotation.Field;
+import com.tuanchauict.annopref.annotation.FloatValue;
 import com.tuanchauict.annopref.annotation.Ignore;
+import com.tuanchauict.annopref.annotation.IntValue;
+import com.tuanchauict.annopref.annotation.LongValue;
 import com.tuanchauict.annopref.annotation.Preference;
+import com.tuanchauict.annopref.annotation.StringValue;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceClass;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 
@@ -43,7 +49,13 @@ public class AnnotationProcessor extends AbstractProcessor {
         return new HashSet<String>(Arrays.asList(
                 Preference.class.getCanonicalName(),
                 Ignore.class.getCanonicalName(),
-                Field.class.getCanonicalName()
+                Field.class.getCanonicalName(),
+                BooleanValue.class.getCanonicalName(),
+                DoubleValue.class.getCanonicalName(),
+                FloatValue.class.getCanonicalName(),
+                IntValue.class.getCanonicalName(),
+                LongValue.class.getCanonicalName(),
+                StringValue.class.getCanonicalName()
         ));
     }
 
@@ -97,7 +109,7 @@ public class AnnotationProcessor extends AbstractProcessor {
                 continue;
             }
             Field field = variableElement.getAnnotation(Field.class);
-            preferenceClass.addField(new PreferenceField(variableElement, field != null ? field.name() : null));
+            preferenceClass.addField(new PreferenceField(variableElement, field != null ? field.value() : null));
         }
         return preferenceClass;
     }

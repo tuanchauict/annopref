@@ -1,8 +1,8 @@
 package com.tuanchauict.annopref.sample.pref;
 
-import com.tuanchauict.annopref.annotation.EnumType;
 import com.tuanchauict.annopref.annotation.Field;
 import com.tuanchauict.annopref.annotation.Preference;
+import com.tuanchauict.annopref.annotation.StringValue;
 
 import java.util.List;
 import java.util.Set;
@@ -12,9 +12,10 @@ import java.util.Set;
  */
 @Preference(prefix = "FOO")
 public class Foo {
-    @Field(name = "foo")
+    @Field("foo")
     private int intPref;
     private float floatPref;
+    @StringValue("default value for String")
     private String stringPref;
     private List<Integer> listInt;
     private Set<Integer> setInt;

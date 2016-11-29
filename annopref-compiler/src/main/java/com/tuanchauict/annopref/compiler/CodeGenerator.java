@@ -79,7 +79,7 @@ public class CodeGenerator {
                 ANNOPREF,
                 methodNameOfType(type),
                 fieldName,
-                defaultOf(type)
+                field.getSeriallizedDefaultValue()
         );
 
         return builder.build();
