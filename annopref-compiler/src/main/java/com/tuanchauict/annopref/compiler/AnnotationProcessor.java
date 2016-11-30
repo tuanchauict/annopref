@@ -117,7 +117,10 @@ public class AnnotationProcessor extends AbstractProcessor {
     private void generate(PreferenceClass cls, HashMap<String, PreferenceField> fieldNames) throws NoPackageNameException, IOException, DuplicateFieldNameException {
         String packageName = cls.getPackage(processingEnv.getElementUtils());
         TypeSpec generatedClass = CodeGenerator.generateClass(cls, fieldNames);
-        JavaFile javaFile = JavaFile.builder(packageName, generatedClass).build();
+        JavaFile javaFile = JavaFile.builder(packageName, generatedClass)
+                .addStaticImport(Arrays.class, "asList")
+                .skipJavaLangImports(true)
+                .build();
         javaFile.writeTo(processingEnv.getFiler());
     }
 
