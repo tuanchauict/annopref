@@ -118,7 +118,7 @@ public class AnnotationProcessor extends AbstractProcessor {
         String packageName = cls.getPackage(processingEnv.getElementUtils());
         TypeSpec generatedClass = CodeGenerator.generateClass(cls, fieldNames);
         JavaFile javaFile = JavaFile.builder(packageName, generatedClass)
-                .addStaticImport(Arrays.class, "asList")
+//                .addStaticImport(Arrays.class, "asList")
                 .skipJavaLangImports(true)
                 .build();
         javaFile.writeTo(processingEnv.getFiler());

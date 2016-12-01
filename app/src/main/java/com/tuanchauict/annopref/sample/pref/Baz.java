@@ -10,6 +10,7 @@ import com.tuanchauict.annopref.annotation.Preference;
 import com.tuanchauict.annopref.annotation.StringValue;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by tuanchauict on 11/17/16.
@@ -30,4 +31,14 @@ public class Baz {
     List<Double> listDouble;
     @StringValue({"1", "2", "3"})
     List<String> listString;
+    @IntValue({1,2,3})
+    Set<Integer> setInt;
+    @LongValue({1,2,3})
+    Set<Long> setLong;
+    @FloatValue({1,2,3})
+    Set<Float> setFloat;
+    @DoubleValue({1,2,3})
+    Set<Double> setDouble;
+    @StringValue({"1", "2", "3"})
+    Set<String> setString;
 }
