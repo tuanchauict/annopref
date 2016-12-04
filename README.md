@@ -44,8 +44,8 @@ public class FooPref {
 ### gradle dependencies
 
 ```groovy
-compile 'com.tuanchauict.annopref:annopref:0.8.1'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.8.1'
+compile 'com.tuanchauict.annopref:annopref:0.8.4'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.8.4'
 ```
 
 ### Init
