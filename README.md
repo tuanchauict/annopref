@@ -44,8 +44,12 @@ public class FooPref {
 ### gradle dependencies
 
 ```groovy
+apply plugin: 'com.neenbedankt.android-apt'
+```
+
+```groovy
 compile 'com.tuanchauict.annopref:annopref:0.8.4'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.8.4'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.8.4' 
 ```
 
 ### Init
@@ -117,5 +121,6 @@ FooPref.hasBaz();
     * ~~List~~
     * ~~Set~~
     * Map
-* Customizable get/set function for each field group.
+    * Object (json)
 * ~~Default value~~
+* Get rid of `autoPrefix` attribute
