@@ -48,8 +48,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 ```
 
 ```groovy
-compile 'com.tuanchauict.annopref:annopref:0.8.4'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.8.4' 
+compile 'com.tuanchauict.annopref:annopref:0.8.5'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.8.5'
 ```
 
 ### Init
@@ -112,7 +112,20 @@ FooPref.setBaz();
 FooPref.hasBaz();
 ```
 
+# Supported types
 
+- boolean
+- int
+- long
+- float
+- String
+- List<Integer>
+- List<Long>
+- List<Float>
+- List<String>
+- Set<Integer>
+- Set<Long>
+- Set<String>
 
 # Future Work
 
