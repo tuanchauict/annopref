@@ -23,8 +23,7 @@ public class Constants {
     final static Set<String> NUMBER_TYPES = new HashSet<>(Arrays.asList(
             "int",
             "long",
-            "float",
-            "double"
+            "float"
     ));
 
     final static String STRING_TYPE = "java.lang.String";
@@ -33,7 +32,7 @@ public class Constants {
             "java.util.List<java.lang.Integer>",
             "java.util.List<java.lang.Long>",
             "java.util.List<java.lang.Float>",
-            "java.util.List<java.lang.Double>",
+//            "java.util.List<java.lang.Double>",
             "java.util.List<java.lang.String>"
     ));
 
@@ -41,7 +40,7 @@ public class Constants {
             "java.util.Set<java.lang.Integer>",
             "java.util.Set<java.lang.Long>",
             "java.util.Set<java.lang.Float>",
-            "java.util.Set<java.lang.Double>",
+//            "java.util.Set<java.lang.Double>",
             "java.util.Set<java.lang.String>"
     ));
 
@@ -49,7 +48,7 @@ public class Constants {
             "java.lang.Integer",
             "java.lang.Long",
             "java.lang.Float",
-            "java.lang.Double",
+//            "java.lang.Double",
             "java.lang.String"
     ));
 
@@ -85,7 +84,7 @@ public class Constants {
                 return Utils.firstUpperCase(s);
             if (STRING_TYPE.equals(s))
                 return "String";
-            switch (s){
+            switch (s) {
                 case "java.util.List<java.lang.Integer>":
                     return "IntegerList";
                 case "java.util.List<java.lang.Long>":
