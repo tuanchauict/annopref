@@ -25,10 +25,8 @@ public class Baz {
     private List<Integer> listInt;
     @LongValue({1,2,3})
     private List<Long> listLong;
-    @FloatValue({1,2,3})
+    @FloatValue({1.0f,2.0f,3.01f})
     List<Float> listFloat;
-    @DoubleValue({1,2,3})
-    List<Double> listDouble;
     @StringValue({"1", "2", "3"})
     List<String> listString;
     @IntValue({1,2,3})
@@ -37,8 +35,6 @@ public class Baz {
     Set<Long> setLong;
     @FloatValue({1,2,3})
     Set<Float> setFloat;
-    @DoubleValue({1,2,3})
-    Set<Double> setDouble;
     @StringValue({"1", "2", "3"})
     Set<String> setString;
 }

@@ -100,7 +100,7 @@ public class AnnotationProcessor extends AbstractProcessor {
             VariableElement variableElement = (VariableElement) element;
 
             if (!FieldValidator.isValid(variableElement)) {
-                error(variableElement, "No support type: %s",
+                error(variableElement, "No supported type: %s",
                         variableElement.asType().toString());
                 break;
             }
