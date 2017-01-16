@@ -23,8 +23,7 @@ public class Constants {
     final static Set<String> NUMBER_TYPES = new HashSet<>(Arrays.asList(
             "int",
             "long",
-            "float",
-            "double"
+            "float"
     ));
 
     final static String STRING_TYPE = "java.lang.String";

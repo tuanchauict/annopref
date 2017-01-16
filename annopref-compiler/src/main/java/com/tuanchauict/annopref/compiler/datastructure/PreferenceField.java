@@ -57,10 +57,10 @@ public class PreferenceField {
                 return idv != null ? idv.value()[0] + "" : "0";
             case "long":
                 LongValue ldv = mVariableElement.getAnnotation(LongValue.class);
-                return ldv != null ? ldv.value()[0] + "" : "0L";
+                return ldv != null ? ldv.value()[0] + "L" : "0L";
             case "float":
                 FloatValue fdv = mVariableElement.getAnnotation(FloatValue.class);
-                return fdv != null ? fdv.value()[0] + "" : "0F";
+                return fdv != null ? fdv.value()[0] + "F" : "0F";
             case "double":
                 DoubleValue ddv = mVariableElement.getAnnotation(DoubleValue.class);
                 return ddv != null ? ddv.value()[0] + "" : "0.0";
