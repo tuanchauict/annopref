@@ -48,8 +48,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 ```
 
 ```groovy
-compile 'com.tuanchauict.annopref:annopref:0.8.5'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.8.5'
+compile 'com.tuanchauict.annopref:annopref:0.8.6'
+apt 'com.tuanchauict.annopref:annopref-compiler:0.8.6'
 ```
 
 ### Init

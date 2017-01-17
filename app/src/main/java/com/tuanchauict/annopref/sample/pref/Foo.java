@@ -1,6 +1,7 @@
 package com.tuanchauict.annopref.sample.pref;
 
 import com.tuanchauict.annopref.annotation.Field;
+import com.tuanchauict.annopref.annotation.FloatValue;
 import com.tuanchauict.annopref.annotation.Preference;
 import com.tuanchauict.annopref.annotation.StringValue;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 public class Foo {
     @Field("foo")
     private int intPref;
+    @FloatValue(0.3f)
     private float floatPref;
     @StringValue("default value for String")
     private String stringPref;

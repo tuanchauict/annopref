@@ -1,7 +1,6 @@
 package com.tuanchauict.annopref;
 
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +82,7 @@ public class AnnoPref {
     //endregion
 
     //region Set
-    public static void putIntegerSet(String property, Set<Integer> value){
+    public static void putIntegerSet(String property, Set<Integer> value) {
         StringBuilder sb = new StringBuilder();
         for (Integer i : value) {
             sb.append(i).append(",");
@@ -92,7 +91,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static Set<Integer> getIntegerSet(String property, Set<Integer> defaultValue){
+    public static Set<Integer> getIntegerSet(String property, Set<Integer> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -109,7 +108,8 @@ public class AnnoPref {
             return defaultValue;
         }
     }
-    public static void putLongSet(String property, Set<Long> value){
+
+    public static void putLongSet(String property, Set<Long> value) {
         StringBuilder sb = new StringBuilder();
         for (Long i : value) {
             sb.append(i).append(",");
@@ -118,7 +118,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static Set<Long> getLongSet(String property, Set<Long> defaultValue){
+    public static Set<Long> getLongSet(String property, Set<Long> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -135,7 +135,8 @@ public class AnnoPref {
             return defaultValue;
         }
     }
-    public static void putFloatSet(String property, Set<Float> value){
+
+    public static void putFloatSet(String property, Set<Float> value) {
         StringBuilder sb = new StringBuilder();
         for (Float i : value) {
             sb.append(i).append(",");
@@ -144,7 +145,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static Set<Float> getFloatSet(String property, Set<Float> defaultValue){
+    public static Set<Float> getFloatSet(String property, Set<Float> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -161,7 +162,8 @@ public class AnnoPref {
             return defaultValue;
         }
     }
-    public static void putDoubleSet(String property, Set<Double> value){
+
+    public static void putDoubleSet(String property, Set<Double> value) {
         StringBuilder sb = new StringBuilder();
         for (Double i : value) {
             sb.append(i).append(",");
@@ -170,7 +172,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static Set<Double> getDoubleSet(String property, Set<Double> defaultValue){
+    public static Set<Double> getDoubleSet(String property, Set<Double> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -227,7 +229,7 @@ public class AnnoPref {
         }
     }
 
-    public static void putLongList(String property, List<Long> arr){
+    public static void putLongList(String property, List<Long> arr) {
         StringBuilder sb = new StringBuilder();
         for (Long i : arr) {
             sb.append(i).append(",");
@@ -236,7 +238,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static List<Long> getLongList(String property, List<Long> defaultValue){
+    public static List<Long> getLongList(String property, List<Long> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -254,7 +256,7 @@ public class AnnoPref {
         }
     }
 
-    public static void putFloatList(String property, List<Float> arr){
+    public static void putFloatList(String property, List<Float> arr) {
         StringBuilder sb = new StringBuilder();
         for (Float i : arr) {
             sb.append(i).append(",");
@@ -263,7 +265,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static List<Float> getFloatList(String property, List<Float> defaultValue){
+    public static List<Float> getFloatList(String property, List<Float> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -281,7 +283,7 @@ public class AnnoPref {
         }
     }
 
-    public static void putDoubleList(String property, List<Double> arr){
+    public static void putDoubleList(String property, List<Double> arr) {
         StringBuilder sb = new StringBuilder();
         for (Double i : arr) {
             sb.append(i).append(",");
@@ -290,7 +292,7 @@ public class AnnoPref {
         putString(property, sb.toString());
     }
 
-    public static List<Double> getDoubleList(String property, List<Double> defaultValue){
+    public static List<Double> getDoubleList(String property, List<Double> defaultValue) {
         if (!containsKey(property)) {
             return defaultValue;
         }
@@ -326,7 +328,7 @@ public class AnnoPref {
 
     public static List<String> getStringList(String property, List<String> defaultValue) {
         String str = sSharedPreferences.getString(property, null);
-        if (TextUtils.isEmpty(str))
+        if (str == null || str.isEmpty())
             return defaultValue;
 
         try {
@@ -363,7 +365,7 @@ public class AnnoPref {
 
     public static Map<String, String> getStringMap(String property, Map<String, String> defaultValue) {
         String str = AnnoPref.sSharedPreferences.getString(property, null);
-        if (TextUtils.isEmpty(str))
+        if (str == null || str.isEmpty())
             return defaultValue;
 
         try {
