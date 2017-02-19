@@ -43,6 +43,13 @@ public class FooPref {
 
 ### gradle dependencies
 
+
+```groovy
+dependencies {
+  classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+}
+```
+
 ```groovy
 apply plugin: 'com.neenbedankt.android-apt'
 ```
