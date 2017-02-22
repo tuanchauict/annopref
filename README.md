@@ -45,8 +45,10 @@ public class FooPref {
 
 
 ```groovy
-dependencies {
-  classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+buildscript {
+    dependencies {
+      classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
 }
 ```
 
@@ -126,13 +128,13 @@ FooPref.hasBaz();
 - long
 - float
 - String
-- List<Integer>
-- List<Long>
-- List<Float>
-- List<String>
-- Set<Integer>
-- Set<Long>
-- Set<String>
+- List&lt;Integer&gt;
+- List&lt;Long&gt;
+- List&lt;Float&gt;
+- List&lt;String&gt;
+- Set&lt;Integer&gt;
+- Set&lt;Long&gt;
+- Set&lt;String&gt;
 
 # Future Work
 
