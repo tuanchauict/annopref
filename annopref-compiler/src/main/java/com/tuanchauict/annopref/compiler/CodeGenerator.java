@@ -167,9 +167,9 @@ public class CodeGenerator {
 
     private static String getPrefKey(boolean antiHack, String prefix, String name) {
         if (antiHack) {
-            return Utils.md5(prefix + "_" + name);
+            return Utils.md5(prefix + name);
         } else {
-            return prefix + "_" + name;
+            return prefix + name;
         }
     }
 }

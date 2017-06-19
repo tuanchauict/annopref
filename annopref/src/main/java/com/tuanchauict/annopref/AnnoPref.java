@@ -29,6 +29,10 @@ public class AnnoPref {
         return sSharedPreferences.contains(key);
     }
 
+    public static void removeKey(String key){
+        sSharedPreferences.edit().remove(key).apply();
+    }
+    
     //region Atomic
     public static void putBoolean(String property, boolean value) {
         SharedPreferences.Editor editor = sSharedPreferences.edit();
