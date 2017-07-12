@@ -25,6 +25,10 @@ public class AnnoPref {
         sSharedPreferences = sharedPreferences;
     }
 
+    public void resetAllPreferences(){
+        sSharedPreferences.edit().clear().apply();
+    }
+    
     public static boolean containsKey(String key) {
         return sSharedPreferences.contains(key);
     }
