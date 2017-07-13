@@ -25,7 +25,7 @@ public class AnnoPref {
         sSharedPreferences = sharedPreferences;
     }
 
-    public void resetAllPreferences(){
+    public static void resetAllPreferences(){
         sSharedPreferences.edit().clear().apply();
     }
     
