@@ -45,20 +45,8 @@ public class FooPref {
 
 
 ```groovy
-buildscript {
-    dependencies {
-      classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
-```
-
-```groovy
-apply plugin: 'com.neenbedankt.android-apt'
-```
-
-```groovy
-compile 'com.tuanchauict.annopref:annopref:0.8.6'
-apt 'com.tuanchauict.annopref:annopref-compiler:0.8.6'
+compile 'com.tuanchauict.annopref:annopref:1.0.0'
+annotationProcessor 'com.tuanchauict.annopref:annopref-compiler:1.0.0'
 ```
 
 ### Init

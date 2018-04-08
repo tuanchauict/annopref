@@ -10,10 +10,6 @@ dependencies {
 
 }
 
-sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
-targetCompatibility = rootProject.ext.targetCompatibilityVersion
-
-
 install {
     repositories.mavenInstaller {
         pom {

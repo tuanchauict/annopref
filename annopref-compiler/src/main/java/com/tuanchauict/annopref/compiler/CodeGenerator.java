@@ -8,6 +8,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceClass;
 import com.tuanchauict.annopref.compiler.datastructure.PreferenceField;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,8 +49,10 @@ public class CodeGenerator {
         }
 
         List<PreferenceField> fields = cls.getFields();
+        List<String> fieldNames = new ArrayList<>(fields.size());
         for (PreferenceField field : fields) {
             String fieldName = getPrefKey(antiHack, prefix, field.getPrefName());
+            fieldNames.add(fieldName);
             if (currentFieldNames.keySet().contains(fieldName)) {
                 throw new DuplicateFieldNameException(currentFieldNames.get(fieldName), field);
             }
@@ -58,11 +61,27 @@ public class CodeGenerator {
             builder.addMethod(makeGetWithDefaultMethod(singleton, fieldName, field));
             builder.addMethod(makeSetMethod(singleton, fieldName, field));
             builder.addMethod(makeHasMethod(singleton, fieldName, field));
+            builder.addMethod(makeRemoveMethod(singleton, fieldName, field));
+            builder.addMethod(makeGetKeyNameMethod(singleton, fieldName, field));
+
+
         }
+
+        builder.addMethod(makeResetMethod(singleton, fieldNames));
 
         return builder.build();
     }
 
+    private static MethodSpec makeResetMethod(boolean singleton, List<String> fieldNames) {
+        MethodSpec.Builder builder = makeGenericMethod(singleton, "reset");
+        builder.returns(TypeName.VOID);
+
+        for (String name: fieldNames) {
+            builder.addStatement("$T.removeKey($S)", ANNOPREF, name);
+        }
+
+        return builder.build();
+    }
 
     private static MethodSpec makeGetMethod(boolean singleton, String fieldName,
                                             PreferenceField field) throws UnsupportedDataTypeException {
@@ -132,6 +151,20 @@ public class CodeGenerator {
                 .addStatement("return $T.containsKey($S)", ANNOPREF, fieldName)
                 .returns(TypeName.BOOLEAN);
 
+        return builder.build();
+    }
+
+    private static MethodSpec makeRemoveMethod(boolean singleton, String fieldName, PreferenceField field) {
+        MethodSpec.Builder builder = makeGenericMethod(singleton, "remove" + field.getMethodName())
+                .addStatement("$T.removeKey($S)", ANNOPREF, fieldName)
+                .returns(TypeName.VOID);
+        return builder.build();
+    }
+
+    private static MethodSpec makeGetKeyNameMethod(boolean singleton, String fieldName, PreferenceField field) throws UnsupportedDataTypeException {
+        MethodSpec.Builder builder = makeGenericMethod(singleton, "get" + field.getMethodName() + "Key")
+                .addStatement("return $S", fieldName)
+                .returns(typeNameOf("java.lang.String"));
         return builder.build();
     }
 

@@ -15,9 +15,9 @@ import java.util.Set;
 /**
  * Created by tuanchauict on 11/17/16.
  */
-@Preference(antiHack = false, prefix = "abc")
+@Preference(antiHack = true, prefix = "abc")
 public class Baz {
-    @BooleanValue(true)
+    @BooleanValue(false)
     @IntValue(1)
     private boolean baz;
     @Field("int")
